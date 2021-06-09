@@ -1,0 +1,8 @@
+.sucursal-box{
+    background-color: aqua;
+}
+
+.container{
+    width: 100%;
+    display: flex;
+}

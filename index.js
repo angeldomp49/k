@@ -8,12 +8,13 @@ function click(HTMLElement, toDo ){
     });
 }
 
-function all(selector){
-    return document.querySelectorAll(selector);
+function all(selector, root = null){
+    console.log(root);
+    return (exists(root)) ? root.querySelectorAll(selector) : document.querySelectorAll(selector);
 }
 
-function one(selector){
-    return document.querySelector(selector);
+function one(selector, root = null){
+    return (exists(root)) ? root.querySelector(selector) : document.querySelector(selector);
 }
 
 function toggleClass( HTMLElement, classNameOne, classNameTwo = "" ){
@@ -30,10 +31,7 @@ function toggleClass( HTMLElement, classNameOne, classNameTwo = "" ){
 }
 
 function each( HTMLElement, toDo ){
-    if( HTMLElement.forEach != "undefined" 
-        && HTMLElement.forEach != undefined 
-        && HTMLElement.forEach != null
-        ){
+    if(exists(HTMLElement.forEach )){
             HTMLElement.forEach(function(element){
                 toDo(element);
             });
@@ -43,9 +41,12 @@ function each( HTMLElement, toDo ){
     }
 }
 
+function exists(element){
+    return ( element != "undefined" && element != undefined && element != null);
+}
 
 $(function(){
     click(all(".sucursal-box"), function(){
-        toggleClass(one(".sucursal-box .elementor-widget-container"), "closed", "opened");
+        toggleClass(one(".sucursal-box .elementor-widget-container", this), "closed", "opened");
     });
 });
